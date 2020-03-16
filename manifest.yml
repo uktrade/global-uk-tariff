@@ -1,0 +1,7 @@
+---
+applications:
+- name: global-uk-tariff
+  memory: 64M
+  buildpacks:
+  - staticfile_buildpack
+
