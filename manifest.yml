@@ -3,4 +3,4 @@ applications:
 - name: global-uk-tariff-dev
   memory: 64M
   buildpacks:
-  - staticfile_buildpack
+  - python_buildpack

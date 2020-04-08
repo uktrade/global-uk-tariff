@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% set filter = request.args.get('filter', '') %}
+
+{% block content %}
+    <h2 class="govuk-heading-m">
+        Search for your goods
+    </h2>
+    <div class="govuk-body">
+        You can search using:
+        <ul>
+            <li>Your commodity code up to 8 digits</li>
+            <li>The description of your goods</li>
+            <li>A tariff rate</li>
+            <li>The type of change</li>
+        </ul>
+    </div>
+
+    <div id="dataTable" class="row container-fluid">
+        <div id="alltable_wrapper" class="dataTables_wrapper no-footer">
+            <form class="data-options" action="" method="get">
+                <div class="data-options__filter">
+                    <div>
+                        <input type="search" name="filter" class="govuk-input" value="{{ filter }}" aria-controls="alltable" />
+                        <button type="submit"><img src="{{ url_for('static', filename='assets/images/search.svg')}}"  alt="search"/></button>
+                    </div>
+                </div>
+                <div class="data-options__length">
+                    <label>Show <select name="n" aria-controls="alltable" class="govuk-select">
+                    {% for size in [10, 25, 50, 100] %}
+                        <option value="{{ size }}" {% if sample_size == size %}selected{% endif %}>{{ size }}</option>
+                    {% endfor %}
+                    </select> commodities
+                    </label>
+                </div>
+            </form>
+        <br>
+        <br>
+        <div class="govuk-body">If you need help finding your commodity code you can use the <a href="https://www.gov.uk/guidance/using-the-trade-tariff-tool-to-find-a-commodity-code" class="govuk-link govuk-link--no-visited-state">trade tariff tool</a>.</div>
+            <table class="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid" aria-describedby="alltable_info" style="width: 1024px;">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row" role="row">
+                        <th class="nw govuk-table__header govuk-table__cell sorting_asc" style="width: 104px;" rowspan="1" colspan="1" aria-label="Commodity">Commodity</th>
+                        <th class="nw govuk-table__header govuk-table__cell sorting_disabled" style="width: 439px;" rowspan="1" colspan="1" aria-label="Description">Description</th>
+                        <th class="nw govuk-table__header govuk-table__cell sorting_disabled" style="width: 181px;" rowspan="1" colspan="1" aria-label="Common External Tariff">Common External Tariff</th>
+                        <th class="nw govuk-table__header govuk-table__cell sorting_disabled" style="width: 121px;" rowspan="1" colspan="1" aria-label="UK Global Tariff">UK Global Tariff</th>
+                        <th class="nw govuk-table__header r govuk-table__cell sorting_disabled" style="width: 94px;" rowspan="1" colspan="1" aria-label="Change">Change</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% for item in data %}
+                        <tr class="govuk-table__row" role="row">
+                            <td class="govuk-table__cell hs-cell">
+                                <span class="hs-cell__heading">{{ item.commodity[:4] }}</span><span class="hs-cell__subheading">{{ item.commodity[4:6] }}</span><span class="hs-cell__subheading">{{ item.commodity[6:] }}</span>
+                            </td>
+                            <td class="govuk-table__cell">{{ item.description }}</td>
+                            <td class="govuk-table__cell nw">{{ item.cet_duty_rate }}</td>
+                            <td class="govuk-table__cell nw">{{ item.ukgt_duty_rate }}</td>
+                            <td class="govuk-table__cell r">{{ item.change }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pagination">
+                <div class="pagination__info" role="status" aria-live="polite">
+                    <span class="govuk-body">Showing {{ start_index }} to {{ stop_index }} of {{ total }} commodities</span>
+                </div>
+                <div class="pagination__links">
+                    {% if page > 1 %}
+                    <a href="{{ url_for('tariff', p=page - 1, n=sample_size, filter=filter) }}" class="pagination__links--button text" aria-controls="alltable" data-dt-idx="0" tabindex="-1">Previous</a>
+                    {% endif %}
+                    {% for page_option in pages %}
+                        {% if page_option == page %}
+                            <span class="pagination__links--button number selected" aria-controls="alltable" tabindex="0">{{ page_option }}</span>
+                        {% elif page_option is number %}
+                            <a href="{{  url_for('tariff', p=page_option, n=sample_size, filter=filter) }}" class="pagination__links--button number" aria-controls="alltable" tabindex="0">{{ page_option }}</a>
+                        {% else %}
+                            <span class="pagination__links--button ellipsis">{{ page_option }}</span>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page < max_page %}
+                    <a href="{{ url_for('tariff', p=page + 1, n=sample_size, filter=filter) }}" class="pagination__links--button text" aria-controls="alltable" data-dt-idx="7" tabindex="0">Next</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="dt-buttons">
+            <a href="{{ url_for('tariff_csv', filter=filter) }}" class="dt-button govuk-button buttons-csv buttons-html5" tabindex="0" aria-controls="alltable" type="button">
+                Export to CSV
+            </a>
+            <a href="{{ url_for('tariff_xlsx', filter=filter) }}" class="dt-button govuk-button buttons-excel buttons-html5" tabindex="0" aria-controls="alltable" type="button">
+                Export to Excel
+            </a>
+        </div>
+    </div>
+    <br>
+    <a href="mailto:support@uktrade.zendesk.com" class="govuk-link govuk-link--no-visited-state">Is there anything wrong with this page?</a>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ url_for('static', filename='js/filterTable.js') }}"></script>
+    <script>
+        window.renderFilterTable(
+            "dataTable",
+            {{ sample_size }},
+            {{ page }},
+            "{{ filter|safe }}",
+            "{{ url_for('static', filename='assets/images/search.svg')}}",
+            {{ all_data|tojson }},
+            {{ pages|tojson }}
+        );
+    </script>
+{% endblock %}
