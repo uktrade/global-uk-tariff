@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "npx webpack --config webpack.config.js",
-    "watch": "npx webpack --config webpack.config.js --watch"
+    "watch": "npx webpack --config webpack.config.js --watch",
+    "test": "npx jest"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -20,7 +21,15 @@
     ],
     "plugins": []
   },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./src/static/js/setupTests.js"
+    ]
+  },
   "dependencies": {
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "jest": "^25.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
@@ -31,6 +40,7 @@
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
     "babel-loader": "^8.1.0",
+    "jest-junit": "^10.0.0",
     "webpack": "^4.42.1",
     "webpack-cli": "^3.3.11"
   }

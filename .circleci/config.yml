@@ -1,12 +1,23 @@
 version: 2
 jobs:
-  test:
+  python_tests:
     docker:
       - image: circleci/python:3.8
     steps:
       - checkout
       - run: pip install -r requirements.txt
-      - run: python -m pytest .
+      - run: python -m pytest . --junitxml=tests.xml
+      - store_test_results:
+          path: .
+  javascript_tests:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - run: npm i
+      - run: npm run test -- --ci --reporters=default --reporters=jest-junit
+      - store_test_results:
+          path: .
   lint:
     docker:
       - image: circleci/python:3.8
@@ -19,6 +30,7 @@ workflows:
   version: 2
   run_tests:
     jobs:
-      - test
+      - python_tests
+      - javascript_tests
       - lint
 
