@@ -1,0 +1,24 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - run: pip install -r requirements.txt
+      - run: python -m pytest .
+  lint:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - run: pip install -r requirements.txt
+      - run: black --check .
+
+workflows:
+  version: 2
+  run_tests:
+    jobs:
+      - test
+      - lint
+
