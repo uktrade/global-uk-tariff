@@ -28,7 +28,7 @@ def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1")
         )
 
     with open(output_file, "w") as f:
-        f.write(json.dumps(data))
+        json.dump(data, f, indent=2)
 
 
 if __name__ == "__main__":
