@@ -5320,6 +5320,13 @@
     "change": "No change"
   },
   {
+    "commodity": "03083080",
+    "description": "Live, fresh, chilled, smoked, dried, salted or in brine, jellyfish \"Rhopilema spp.\"",
+    "cet_duty_rate": "11.00%",
+    "ukgt_duty_rate": "10.00%",
+    "change": "Simplified"
+  },
+  {
     "commodity": "03089010",
     "description": "Live, fresh or chilled, aquatic invertebrates (excl. crustaceans, molluscs, sea cucumbers, sea urchins and jellyfish); all fresh or chilled flours, meals and pellets of aquatic invertebrates other than crustaceans and molluscs, fit for human consumption",
     "cet_duty_rate": "11.00%",
@@ -18643,6 +18650,13 @@
   {
     "commodity": "27101249",
     "description": "Motor spirit, with a lead content <= 0,013 g/l, with a research octane number \"RON\" of >= 98 (excl. containing biodiesel)",
+    "cet_duty_rate": "4.70%",
+    "ukgt_duty_rate": "4.00%",
+    "change": "Simplified"
+  },
+  {
+    "commodity": "27101250",
+    "description": "Motor spirit, with a lead content > 0,013 g/l (excl. containing biodiesel, and aviation spirit)",
     "cet_duty_rate": "4.70%",
     "ukgt_duty_rate": "4.00%",
     "change": "Simplified"
@@ -49322,6 +49336,20 @@
     "change": "Simplified"
   },
   {
+    "commodity": "76061211",
+    "description": "Beverage can body stock, of aluminium alloys, of a thickness of > 0,2 mm",
+    "cet_duty_rate": "7.50%",
+    "ukgt_duty_rate": "6.00%",
+    "change": "Simplified"
+  },
+  {
+    "commodity": "76061219",
+    "description": "Beverage can end stock and tab stock, of aluminium alloys, of a thickness of > 0,2 mm",
+    "cet_duty_rate": "7.50%",
+    "ukgt_duty_rate": "6.00%",
+    "change": "Simplified"
+  },
+  {
     "commodity": "76061220",
     "description": "Plates, sheets and strip, of aluminium alloys, of a thickness of > 0,2 mm, square or rectangular, painted, varnished or coated with plastics",
     "cet_duty_rate": "7.50%",
@@ -54399,6 +54427,27 @@
   {
     "commodity": "84431310",
     "description": "Offset printing machinery, sheet fed, used, taking sheets of a size > 22 x 36 cm",
+    "cet_duty_rate": "1.70%",
+    "ukgt_duty_rate": "0.00%",
+    "change": "Liberalised"
+  },
+  {
+    "commodity": "84431332",
+    "description": "Offset printing machinery, sheet fed, new, taking sheets of a size <= 53 x 75 cm but > 22 x 36 cm",
+    "cet_duty_rate": "1.70%",
+    "ukgt_duty_rate": "0.00%",
+    "change": "Liberalised"
+  },
+  {
+    "commodity": "84431334",
+    "description": "Offset printing machinery, sheet fed, new, taking sheets of a size > 53 x 75 cm but <= 75 x 107 cm",
+    "cet_duty_rate": "1.70%",
+    "ukgt_duty_rate": "0.00%",
+    "change": "Liberalised"
+  },
+  {
+    "commodity": "84431338",
+    "description": "Offset printing machinery, sheet fed, new, taking sheets of a size > 75 x 107 cm",
     "cet_duty_rate": "1.70%",
     "ukgt_duty_rate": "0.00%",
     "change": "Liberalised"
