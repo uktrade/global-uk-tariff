@@ -11964,14 +11964,14 @@
   },
   {
     "commodity": "16041995",
-    "description": "Alaska pollack \"Theragra chalcogramma\" and pollack \"Pollachius pollachius\", prepared or preserved, whole or in pieces (excl. finely minced and fillets, raw, merely coated with batter or breadcrumbs, whether or not pre-fried in oil, frozen)",
+    "description": "Alaska pollock \"Theragra chalcogramma\" and pollack \"Pollachius pollachius\", prepared or preserved, whole or in pieces (excl. finely minced and fillets, raw, merely coated with batter or breadcrumbs, whether or not pre-fried in oil, frozen)",
     "cet_duty_rate": "20.00%",
     "ukgt_duty_rate": "20.00%",
     "change": "Simplified"
   },
   {
     "commodity": "16041997",
-    "description": "Fish, prepared or preserved, whole or in pieces (excl. minced, merely smoked, and salmonidae, herrings, sardines, sardinella, anchovies, brisling, sprats, tunas, bonito \"Sarda spp.\", mackerel, eels, shark fins, Euthynnus spp., Orcynopsis unicolor, cod, coalfish, hake, Alaska pollack and pollack; fillets, raw, merely coated with batter or breadcrumbs, even pre-fried in oil, frozen)",
+    "description": "Fish, prepared or preserved, whole or in pieces (excl. minced, merely smoked, and salmonidae, herrings, sardines, sardinella, anchovies, brisling, sprats, tunas, bonito \"Sarda spp.\", mackerel, eels, shark fins, Euthynnus spp., Orcynopsis unicolor, cod, coalfish, hake, Alaska pollock and pollack; fillets, raw, merely coated with batter or breadcrumbs, even pre-fried in oil, frozen)",
     "cet_duty_rate": "20.00%",
     "ukgt_duty_rate": "20.00%",
     "change": "Simplified"
@@ -49351,14 +49351,14 @@
   },
   {
     "commodity": "76061220",
-    "description": "Plates, sheets and strip, of aluminium alloys, of a thickness of > 0,2 mm, square or rectangular, painted, varnished or coated with plastics",
+    "description": "Plates, sheets and strip, of aluminium alloys, of a thickness of > 0,2 mm, square or rectangular, painted, varnished or coated with plastics (excl. beverage can body stock, end stock and tab stock)",
     "cet_duty_rate": "7.50%",
     "ukgt_duty_rate": "6.00%",
     "change": "Simplified"
   },
   {
     "commodity": "76061292",
-    "description": "Plates, sheets and strip, of aluminium alloys, of a thickness of > 0,2 mm but < 3 mm, square or rectangular (excl. painted, varnished or coated with plastics, expanded plates, sheets and strip)",
+    "description": "Plates, sheets and strip, of aluminium alloys, of a thickness of > 0,2 mm but < 3 mm, square or rectangular (excl. painted, varnished or coated with plastics, expanded plates, sheets and strip, beverage can body stock, end stock and tab stock)",
     "cet_duty_rate": "7.50%",
     "ukgt_duty_rate": "6.00%",
     "change": "Simplified"
