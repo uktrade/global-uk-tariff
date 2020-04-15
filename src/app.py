@@ -98,6 +98,15 @@ def tariff_api():
     return flask.jsonify(data)
 
 
+@app.route("/tariff/metadata.json")
+@decorators.cache_without_request_args()
+@decorators.compress_response
+def tariff_metadata():
+    return flask.Response(
+        flask.render_template("metadata.json"), mimetype="application/json",
+    )
+
+
 @app.after_request
 def add_no_robots_header(response: Response):
     response.headers["X-Robots-Tag"] = "noindex, nofollow"
