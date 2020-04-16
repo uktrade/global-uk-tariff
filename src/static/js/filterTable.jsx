@@ -100,12 +100,12 @@ const FilterTable = (props) => {
                     setPage={handlePageChange}/>
 
         <div className="dt-buttons">
-            <a href={`/tariff/global-uk-tariff.csv?filter=${filter}`}
+            <a href={`/api/global-uk-tariff.csv?filter=${filter}`}
                className="dt-button govuk-button buttons-csv buttons-html5" tabIndex="0" aria-controls="alltable"
                type="button">
                 Export to CSV
             </a>
-            <a href={`/tariff/global-uk-tariff.xlsx?filter=${filter}`}
+            <a href={`/api/global-uk-tariff.xlsx?filter=${filter}`}
                className="dt-button govuk-button buttons-excel buttons-html5" tabIndex="0" aria-controls="alltable"
                type="button">
                 Export to Excel
