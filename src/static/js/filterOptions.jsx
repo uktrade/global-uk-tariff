@@ -15,6 +15,7 @@ const FilterOptions = (props) => {
                 <input type="search"
                        name="filter"
                        className="govuk-input"
+                       placeholder="Search here..."
                        value={filter}
                        aria-controls="alltable"
                        onChange={props.handleFilterChange}/>

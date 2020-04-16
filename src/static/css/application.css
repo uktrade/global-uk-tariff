@@ -1428,6 +1428,12 @@ div.dt-buttons .govuk-button:link {
     float: right;
 }
 
+
+.data-options__length label {
+    margin-right: 20px;
+}
+
+
 @media screen and (max-width: 600px) {
     .data-options__filter {
         float: left;
