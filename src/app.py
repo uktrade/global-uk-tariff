@@ -36,7 +36,7 @@ def tariff():
     )
 
 
-@app.route("/tariff/global-uk-tariff.csv")
+@app.route("/api/global-uk-tariff.csv")
 def tariff_csv():
     filter_arg = request.args.get("filter")
     data = utils.get_data_as_list(filter_arg)
@@ -48,7 +48,7 @@ def tariff_csv():
     )
 
 
-@app.route("/tariff/global-uk-tariff.xlsx")
+@app.route("/api/global-uk-tariff.xlsx")
 def tariff_xlsx():
     filter_arg = request.args.get("filter")
     data = utils.get_data_as_list(filter_arg)
@@ -60,7 +60,7 @@ def tariff_xlsx():
     return response
 
 
-@app.route("/api/tariff")
+@app.route("/api/global-uk-tariff")
 def tariff_api():
-    data = utils.get_data_from_request()[0]
+    data = utils.get_data_from_request(get_all=True)[0]
     return flask.jsonify(data)

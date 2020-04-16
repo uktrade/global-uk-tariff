@@ -45,13 +45,13 @@ def get_data(
 
 
 def get_data_from_request(
-    request: flask.Request = flask.request,
+    request: flask.Request = flask.request, **kwargs
 ) -> Tuple[List[dict], int]:
     filter_arg = request.args.get("filter")
     offset = get_positive_int_request_arg("p", DEFAULT_PAGE) - 1
     sample_size = get_positive_int_request_arg("n", DEFAULT_SAMPLE_SIZE)
 
-    return get_data(filter_arg, offset, sample_size)
+    return get_data(filter_arg, offset, sample_size, **kwargs)
 
 
 def get_data_as_list(filter_param: str) -> List[List[str]]:

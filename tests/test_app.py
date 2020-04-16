@@ -109,31 +109,11 @@ def test_tariff_api_with_filter(
     filter: str, length: int, client: FlaskClient, data_file: str
 ):
     utils.DATA_FILEPATH = data_file
-    response = client.get(f"/api/tariff?filter={filter}")
+    response = client.get(f"/api/global-uk-tariff?filter={filter}")
 
     assert response.status_code == 200
     data = response.json
     assert len(data) == length
-    for item in data:
-        assert set(item.keys()) == {
-            "commodity",
-            "description",
-            "cet_duty_rate",
-            "ukgt_duty_rate",
-            "change",
-        }
-
-
-@pytest.mark.parametrize("sample_size", range(1, 5))
-def test_tariff_api_with_sample_size(
-    sample_size: int, client: FlaskClient, data_file: str
-):
-    utils.DATA_FILEPATH = data_file
-    response = client.get(f"/api/tariff?n={sample_size}")
-
-    assert response.status_code == 200
-    data = response.json
-    assert len(data) == sample_size
     for item in data:
         assert set(item.keys()) == {
             "commodity",
@@ -154,7 +134,7 @@ def test_tariff_csv(filter: str, length: int, client: FlaskClient, data_file: st
     Length is always expected number of rows + 2 due to the header row and a newline at EOL.
     """
     utils.DATA_FILEPATH = data_file
-    response = client.get(f"/tariff/global-uk-tariff.csv?filter={filter}")
+    response = client.get(f"/api/global-uk-tariff.csv?filter={filter}")
 
     assert response.status_code == 200
     assert response.mimetype == "text/csv"
@@ -164,7 +144,7 @@ def test_tariff_csv(filter: str, length: int, client: FlaskClient, data_file: st
 
 def test_tariff_xlsx(client: FlaskClient, data_file: str):
     utils.DATA_FILEPATH = data_file
-    response = client.get(f"/tariff/global-uk-tariff.xlsx")
+    response = client.get(f"/api/global-uk-tariff.xlsx")
 
     assert response.status_code == 200
     assert (
