@@ -22,6 +22,8 @@ def get_positive_int_request_arg(
         return default
     return value
 
+with open(DATA_FILEPATH) as data_file:
+    DATA = json.load(data_file)
 
 def get_data(
     filter_param: str = None,
@@ -30,14 +32,14 @@ def get_data(
     get_all: bool = False,
     filepath: str = None,
 ) -> Tuple[List[dict], int]:
-    with open(filepath or DATA_FILEPATH) as data_file:
-        json_data = json.load(data_file)
     if filter_param is not None:
         json_data = [
             row
-            for row in json_data
+            for row in DATA
             if any(filter_param.lower() in str(value).lower() for value in row.values())
         ]
+    else:
+        json_data = DATA
     start_node = offset * sample_size
     if get_all:
         return json_data, len(json_data)

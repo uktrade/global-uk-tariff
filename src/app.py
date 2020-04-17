@@ -3,6 +3,7 @@ import math
 import flask
 from flask import request
 from whitenoise import WhiteNoise
+import json
 
 from src import utils
 
@@ -15,6 +16,10 @@ def home():
     return flask.render_template("home.html")
 
 
+DATA_FILEPATH = "data.json"
+with open(DATA_FILEPATH) as data_file:
+    DATA = data_file.read()
+
 @app.route("/tariff")
 def tariff():
     data, total = utils.get_data_from_request()
@@ -24,7 +29,7 @@ def tariff():
 
     return flask.render_template(
         "tariff.html",
-        all_data=utils.get_data(get_all=True)[0],
+        all_data=DATA,
         data=data,
         total=total,
         pages=utils.get_pages(page, max_page),
