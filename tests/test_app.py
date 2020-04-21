@@ -71,7 +71,7 @@ def test_tariff_with_filter(
     filter: str, length: int, client: FlaskClient, data_file: str
 ):
     utils.DATA_FILEPATH = data_file
-    response = client.get(f"/tariff?filter={filter}")
+    response = client.get(f"/tariff?q={filter}")
 
     assert response.status_code == 200
     soup = BeautifulSoup(response.data, "html.parser")
@@ -84,7 +84,7 @@ def test_tariff_filter_case_insensitive(
     filter: str, client: FlaskClient, data_file: str
 ):
     utils.DATA_FILEPATH = data_file
-    response = client.get(f"/tariff?filter={filter}")
+    response = client.get(f"/tariff?q={filter}")
     soup = BeautifulSoup(response.data, "html.parser")
     rows = soup.find_all("td", string="Pure-bred breeding horses")
 
@@ -109,7 +109,7 @@ def test_tariff_api_with_filter(
     filter: str, length: int, client: FlaskClient, data_file: str
 ):
     utils.DATA_FILEPATH = data_file
-    response = client.get(f"/api/global-uk-tariff?filter={filter}")
+    response = client.get(f"/api/global-uk-tariff?q={filter}")
 
     assert response.status_code == 200
     data = response.json
@@ -134,7 +134,7 @@ def test_tariff_csv(filter: str, length: int, client: FlaskClient, data_file: st
     Length is always expected number of rows + 2 due to the header row and a newline at EOL.
     """
     utils.DATA_FILEPATH = data_file
-    response = client.get(f"/api/global-uk-tariff.csv?filter={filter}")
+    response = client.get(f"/api/global-uk-tariff.csv?q={filter}")
 
     assert response.status_code == 200
     assert response.mimetype == "text/csv"
