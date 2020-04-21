@@ -38,7 +38,7 @@ const getPageOptions = (startPage, maxPage, pageRange = 2) => {
 const updateURL = (filter, sampleSize, page) => {
     let updatedURL = window.location.protocol + "//"
         + window.location.host + window.location.pathname
-        + `?filter=${filter}&n=${sampleSize}&p=${page}`;
+        + `?q=${filter}&n=${sampleSize}&p=${page}`;
 
     window.history.pushState({path: updatedURL}, '', updatedURL);
 }
@@ -103,12 +103,12 @@ const FilterTable = (props) => {
                     setPage={handlePageChange}/>
 
         <div className="dt-buttons">
-            <a href={`/api/global-uk-tariff.csv?filter=${filter}`}
+            <a href={`/api/global-uk-tariff.csv?q=${filter}`}
                className="dt-button govuk-button buttons-csv buttons-html5" tabIndex="0" aria-controls="alltable"
                type="button">
                 Export to CSV
             </a>
-            <a href={`/api/global-uk-tariff.xlsx?filter=${filter}`}
+            <a href={`/api/global-uk-tariff.xlsx?q=${filter}`}
                className="dt-button govuk-button buttons-excel buttons-html5" tabIndex="0" aria-controls="alltable"
                type="button">
                 Export to Excel

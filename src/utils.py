@@ -10,6 +10,8 @@ DATA_FILEPATH = "data.json"
 DEFAULT_PAGE = 1
 DEFAULT_SAMPLE_SIZE = 25
 
+FILTER_ARG = "q"
+
 
 def get_positive_int_request_arg(
     name: str, default: int, request: flask.Request = flask.request
@@ -47,7 +49,7 @@ def get_data(
 def get_data_from_request(
     request: flask.Request = flask.request, **kwargs
 ) -> Tuple[List[dict], int]:
-    filter_arg = request.args.get("filter")
+    filter_arg = request.args.get(FILTER_ARG)
     offset = get_positive_int_request_arg("p", DEFAULT_PAGE) - 1
     sample_size = get_positive_int_request_arg("n", DEFAULT_SAMPLE_SIZE)
 

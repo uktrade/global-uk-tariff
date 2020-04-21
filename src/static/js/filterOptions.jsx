@@ -13,7 +13,7 @@ const FilterOptions = (props) => {
         <div className="data-options__filter">
             <div>
                 <input type="search"
-                       name="filter"
+                       name="q"
                        className="govuk-input"
                        placeholder="Search here..."
                        value={filter}

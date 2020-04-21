@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% set filter = request.args.get('filter', '') %}
+{% set filter = request.args.get('q', '') %}
 
 {% block content %}
     <h2 class="govuk-heading-m">
@@ -21,7 +21,7 @@
                 <form class="data-options" action="" method="get">
                     <div class="data-options__filter">
                         <div>
-                            <input type="search" name="filter" placeholder="Search here..." class="govuk-input" value="{{ filter }}" aria-controls="alltable" />
+                            <input type="search" name="q" placeholder="Search here..." class="govuk-input" value="{{ filter }}" aria-controls="alltable" />
                         </div>
                     </div>
                     <div class="data-options__length">
@@ -68,28 +68,28 @@
                     </div>
                     <div class="pagination__links">
                         {% if page > 1 %}
-                        <a href="{{ url_for('tariff', p=page - 1, n=sample_size, filter=filter) }}" class="pagination__links--button text" aria-controls="alltable" data-dt-idx="0" tabindex="-1">Previous</a>
+                        <a href="{{ url_for('tariff', p=page - 1, n=sample_size, q=filter) }}" class="pagination__links--button text" aria-controls="alltable" data-dt-idx="0" tabindex="-1">Previous</a>
                         {% endif %}
                         {% for page_option in pages %}
                             {% if page_option == page %}
                                 <span class="pagination__links--button number selected" aria-controls="alltable" tabindex="0">{{ page_option }}</span>
                             {% elif page_option is number %}
-                                <a href="{{  url_for('tariff', p=page_option, n=sample_size, filter=filter) }}" class="pagination__links--button number" aria-controls="alltable" tabindex="0">{{ page_option }}</a>
+                                <a href="{{  url_for('tariff', p=page_option, n=sample_size, q=filter) }}" class="pagination__links--button number" aria-controls="alltable" tabindex="0">{{ page_option }}</a>
                             {% else %}
                                 <span class="pagination__links--button ellipsis">{{ page_option }}</span>
                             {% endif %}
                         {% endfor %}
                         {% if page < max_page %}
-                        <a href="{{ url_for('tariff', p=page + 1, n=sample_size, filter=filter) }}" class="pagination__links--button text" aria-controls="alltable" data-dt-idx="7" tabindex="0">Next</a>
+                        <a href="{{ url_for('tariff', p=page + 1, n=sample_size, q=filter) }}" class="pagination__links--button text" aria-controls="alltable" data-dt-idx="7" tabindex="0">Next</a>
                         {% endif %}
                     </div>
                 </div>
             </div>
             <div class="dt-buttons">
-                <a href="{{ url_for('tariff_csv', filter=filter) }}" class="dt-button govuk-button buttons-csv buttons-html5" tabindex="0" aria-controls="alltable" type="button">
+                <a href="{{ url_for('tariff_csv', q=filter) }}" class="dt-button govuk-button buttons-csv buttons-html5" tabindex="0" aria-controls="alltable" type="button">
                     Export to CSV
                 </a>
-                <a href="{{ url_for('tariff_xlsx', filter=filter) }}" class="dt-button govuk-button buttons-excel buttons-html5" tabindex="0" aria-controls="alltable" type="button">
+                <a href="{{ url_for('tariff_xlsx', q=filter) }}" class="dt-button govuk-button buttons-excel buttons-html5" tabindex="0" aria-controls="alltable" type="button">
                     Export to Excel
                 </a>
             </div>
