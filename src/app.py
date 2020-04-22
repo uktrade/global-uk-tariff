@@ -1,7 +1,7 @@
 import math
 
 import flask
-from flask import request
+from flask import request, Response
 from whitenoise import WhiteNoise
 
 from src import decorators, utils
@@ -81,3 +81,9 @@ def tariff_xlsx():
 def tariff_api():
     data = utils.get_data_from_request(get_all=True)[0]
     return flask.jsonify(data)
+
+
+@app.after_request
+def add_no_robots_header(response: Response):
+    response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return response

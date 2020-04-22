@@ -55,6 +55,11 @@ def test_home(client: FlaskClient):
     assert b'<a href="/tariff">global tariff</a>' in response.data
 
 
+def test_noindex(client: FlaskClient):
+    response = client.get("/")
+    assert response.headers["X-Robots-Tag"] == "noindex, nofollow"
+
+
 @pytest.mark.parametrize(
     "filter,length", [("", 5), ("cow", 3), ("bearing", 2), ("notreal", 1)]
 )
