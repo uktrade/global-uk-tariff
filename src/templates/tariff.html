@@ -108,7 +108,7 @@
             {{ page }},
             "{{ filter|safe }}",
             "{{ url_for('static', filename='assets/images/search.svg')}}",
-            {{ all_data|tojson }},
+            {{ all_data|safe }},
             {{ pages|tojson }}
         );
     </script>

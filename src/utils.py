@@ -7,10 +7,13 @@ from xlsxwriter import Workbook
 
 DATA_FILEPATH = "data.json"
 
+FILTER_ARG = "q"
+
+DEFAULT_FILTER = ""
 DEFAULT_PAGE = 1
 DEFAULT_SAMPLE_SIZE = 25
-
-FILTER_ARG = "q"
+with open(DATA_FILEPATH) as _data_file:
+    DEFAULT_DATA = json.load(_data_file)
 
 
 def get_positive_int_request_arg(
@@ -26,15 +29,18 @@ def get_positive_int_request_arg(
 
 
 def get_data(
-    filter_param: str = None,
+    filter_param: str = DEFAULT_FILTER,
     offset: int = DEFAULT_PAGE - 1,
     sample_size: int = DEFAULT_SAMPLE_SIZE,
     get_all: bool = False,
     filepath: str = None,
 ) -> Tuple[List[dict], int]:
-    with open(filepath or DATA_FILEPATH) as data_file:
-        json_data = json.load(data_file)
-    if filter_param is not None:
+    if not filepath:
+        json_data = DEFAULT_DATA
+    else:
+        with open(filepath) as data_file:
+            json_data = json.load(data_file)
+    if filter_param:
         json_data = [
             row
             for row in json_data
@@ -49,7 +55,7 @@ def get_data(
 def get_data_from_request(
     request: flask.Request = flask.request, **kwargs
 ) -> Tuple[List[dict], int]:
-    filter_arg = request.args.get(FILTER_ARG)
+    filter_arg = request.args.get(FILTER_ARG, DEFAULT_FILTER)
     offset = get_positive_int_request_arg("p", DEFAULT_PAGE) - 1
     sample_size = get_positive_int_request_arg("n", DEFAULT_SAMPLE_SIZE)
 

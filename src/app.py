@@ -4,18 +4,23 @@ import flask
 from flask import request
 from whitenoise import WhiteNoise
 
-from src import utils
+from src import decorators, utils
 
 app = flask.Flask(__name__)
 app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
 
 
 @app.route("/")
+@decorators.cache_without_request_args()
 def home():
     return flask.render_template("home.html")
 
 
 @app.route("/tariff")
+@decorators.cache_without_request_args(
+    q=utils.DEFAULT_FILTER, p=utils.DEFAULT_PAGE, n=utils.DEFAULT_SAMPLE_SIZE
+)
+@decorators.compress_response
 def tariff():
     data, total = utils.get_data_from_request()
     page = utils.get_positive_int_request_arg("p", utils.DEFAULT_PAGE)
@@ -37,6 +42,10 @@ def tariff():
 
 
 @app.route("/api/global-uk-tariff.csv")
+@decorators.cache_without_request_args(
+    q=utils.DEFAULT_FILTER, p=utils.DEFAULT_PAGE, n=utils.DEFAULT_SAMPLE_SIZE
+)
+@decorators.compress_response
 def tariff_csv():
     filter_arg = request.args.get(utils.FILTER_ARG)
     data = utils.get_data_as_list(filter_arg)
@@ -49,6 +58,10 @@ def tariff_csv():
 
 
 @app.route("/api/global-uk-tariff.xlsx")
+@decorators.cache_without_request_args(
+    q=utils.DEFAULT_FILTER, p=utils.DEFAULT_PAGE, n=utils.DEFAULT_SAMPLE_SIZE
+)
+@decorators.compress_response
 def tariff_xlsx():
     filter_arg = request.args.get(utils.FILTER_ARG)
     data = utils.get_data_as_list(filter_arg)
@@ -61,6 +74,10 @@ def tariff_xlsx():
 
 
 @app.route("/api/global-uk-tariff")
+@decorators.cache_without_request_args(
+    q=utils.DEFAULT_FILTER, p=utils.DEFAULT_PAGE, n=utils.DEFAULT_SAMPLE_SIZE
+)
+@decorators.compress_response
 def tariff_api():
     data = utils.get_data_from_request(get_all=True)[0]
     return flask.jsonify(data)

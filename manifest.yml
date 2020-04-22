@@ -1,6 +1,12 @@
 ---
 applications:
 - name: global-uk-tariff-dev
-  memory: 64M
+  memory: 512M
+  buildpacks:
+  - python_buildpack
+---
+applications:
+- name: global-uk-tariff-staging
+  memory: 512M
   buildpacks:
   - python_buildpack
