@@ -55,6 +55,20 @@ def test_home(client: FlaskClient):
     assert b'<a href="/tariff">global tariff</a>' in response.data
 
 
+def test_healthcheck(client: FlaskClient):
+    response = client.get("/healthcheck")
+    assert response.status_code == 200
+    assert (
+        response.data
+        == b"""<pingdom_http_custom_check>
+    <status>OK</status>
+    <response_time>1</response_time>
+</pingdom_http_custom_check>"""
+    )
+    assert response.headers["Content-Type"] == "text/xml"
+    assert response.headers["Cache-Control"] == "no-cache, no-store, must-revalidate"
+
+
 def test_noindex(client: FlaskClient):
     response = client.get("/")
     assert response.headers["X-Robots-Tag"] == "noindex, nofollow"
