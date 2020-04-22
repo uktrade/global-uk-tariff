@@ -16,6 +16,21 @@ def home():
     return flask.render_template("home.html")
 
 
+@app.route("/healthcheck")
+def healthcheck():
+    response = flask.Response(
+        """\
+<pingdom_http_custom_check>
+    <status>OK</status>
+    <response_time>1</response_time>
+</pingdom_http_custom_check>"""
+    )
+    response.headers["Content-Type"] = "text/xml"
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+
+    return response
+
+
 @app.route("/tariff")
 @decorators.cache_without_request_args(
     q=utils.DEFAULT_FILTER, p=utils.DEFAULT_PAGE, n=utils.DEFAULT_SAMPLE_SIZE
