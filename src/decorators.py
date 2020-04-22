@@ -56,7 +56,7 @@ def compress_response(func):
         response.direct_passthrough = False
         # GZIP the response.
         gzip_buffer = BytesIO()
-        with GzipFile(mode="wb", compresslevel=6, fileobj=gzip_buffer) as gzip_file:
+        with GzipFile(mode="wb", compresslevel=9, fileobj=gzip_buffer) as gzip_file:
             gzip_file.write(response.get_data())
 
         response.set_data(gzip_buffer.getvalue())
