@@ -1,5 +1,6 @@
+import csv
 import json
-from io import BytesIO
+from io import BytesIO, StringIO
 from typing import Tuple, List
 
 import flask
@@ -80,12 +81,12 @@ def get_data_as_list(filter_param: str) -> List[List[str]]:
     return [headers] + data
 
 
-def format_data_as_csv(data: List[List[str]]) -> str:
-    formatted_data = ""
-    for row in data:
-        str_row = ",".join(row)
-        formatted_data += str_row + "\n"
-    return formatted_data
+def format_data_as_csv(data: List[List[str]]) -> StringIO:
+    output = StringIO()
+    writer = csv.writer(output)
+    writer.writerows(data)
+    output.seek(0)
+    return output
 
 
 def format_data_as_xlsx(data: List[List[str]]) -> BytesIO:
