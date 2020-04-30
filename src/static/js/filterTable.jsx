@@ -45,17 +45,22 @@ const updateURL = (filter, sampleSize, page) => {
 
 
 const FilterTable = (props) => {
+    let filteredData;
     const data = props.data;
 
     const [page, setPage] = useState(props.page);
     const [filter, setFilter] = useState(props.filterOptions.filter);
     const [sampleSize, setSampleSize] = useState(props.filterOptions.sampleSize);
 
-    const filteredData = data.filter(
-        (row) => {
-            return Object.values(row).some(item => String(item).toLowerCase().includes(filter.toLowerCase()))
-        }
-    )
+    const filters = filter.split(' ').map(subFilter => subFilter.toLowerCase())
+
+    filteredData = data.filter(row => {
+        const rowItems = Object.values(row).map(item => String(item).toLowerCase());
+        return filters.every(subFilter => {
+            return rowItems.some(item => item.includes(subFilter))
+        })
+    })
+
     const displayData = filteredData.slice((page - 1) * sampleSize, page * sampleSize);
 
     const startRecord = displayData.length !== 0 ? (sampleSize * (page - 1)) + 1 : 0;
