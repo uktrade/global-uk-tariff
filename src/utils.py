@@ -29,6 +29,29 @@ def get_positive_int_request_arg(
     return value
 
 
+def get_filtered_data(data: List[dict], filters: List[str]) -> List[dict]:
+    """
+    Filters the data on a set of given keywords.
+
+    If multiple filters are give these should operate on an AND basis.
+
+    i.e. the row must contain all given filters for it to be returned.
+    """
+    if not filters:
+        return data
+
+    new_data = []
+    for row in data:
+        str_row = [item.lower() for item in row.values()]
+        for sub_filter in filters:
+            if not any(sub_filter in item for item in str_row):
+                break
+        else:
+            new_data.append(row)
+
+    return new_data
+
+
 def get_data(
     filter_param: str = DEFAULT_FILTER,
     offset: int = DEFAULT_PAGE - 1,
@@ -41,12 +64,15 @@ def get_data(
     else:
         with open(filepath) as data_file:
             json_data = json.load(data_file)
-    if filter_param:
-        json_data = [
-            row
-            for row in json_data
-            if any(filter_param.lower() in str(value).lower() for value in row.values())
-        ]
+
+    filters = (
+        [sub_filter.lower() for sub_filter in filter_param.split(" ")]
+        if filter_param
+        else []
+    )
+
+    json_data = get_filtered_data(json_data, filters)
+
     start_node = offset * sample_size
     if get_all:
         return json_data, len(json_data)

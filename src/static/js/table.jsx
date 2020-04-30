@@ -5,8 +5,8 @@ const escapeRegExp = (string) => {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
-const renderHighlightedContent = (filter, string) => {
-    const filterRegex = new RegExp(`(${escapeRegExp(filter)})`, 'ig');
+const renderHighlightedContent = (filters, string) => {
+    const filterRegex = new RegExp(`(${filters.map(escapeRegExp).join('|')})`, 'ig');
 
     const parts = string.split(filterRegex);
 
@@ -20,7 +20,7 @@ const renderHighlightedContent = (filter, string) => {
 
 const DataTable = (props) => {
     const highlight = (string) => {
-        return renderHighlightedContent(props.filter, string)
+        return renderHighlightedContent(props.filter.split(' '), string)
     }
     const renderRow = (row, index) => {
         return <tr className="govuk-table__row"role="row" key={row.commodity + index}>
