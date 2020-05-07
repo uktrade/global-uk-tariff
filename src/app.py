@@ -1,4 +1,7 @@
+import logging
 import math
+import os
+from concurrent.futures.thread import ThreadPoolExecutor
 
 import flask
 from flask import request, Response
@@ -8,6 +11,9 @@ from src import decorators, utils
 
 app = flask.Flask(__name__)
 app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
+
+
+thread_pool = ThreadPoolExecutor()
 
 
 @app.route("/")
@@ -105,4 +111,21 @@ def tariff_metadata():
 @app.after_request
 def add_no_robots_header(response: Response):
     response.headers["X-Robots-Tag"] = "noindex, nofollow"
+    return response
+
+
+@app.after_request
+def google_analytics(response: Response):
+    kwargs = {}
+    if request.accept_languages:
+        kwargs["ul"] = request.accept_languages[0]
+
+    thread_pool.submit(
+        utils.send_analytics,
+        path=request.path,
+        host=request.host,
+        remote_addr=request.remote_addr,
+        user_agent=request.headers["User-Agent"],
+        **kwargs,
+    )
     return response
