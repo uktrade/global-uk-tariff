@@ -72,6 +72,7 @@ def get_data(
     )
 
     json_data = get_filtered_data(json_data, filters)
+    json_data = sorted(json_data, key=lambda row: not(any([row['commodity'].startswith(f) for f in filters])))
 
     start_node = offset * sample_size
     if get_all:

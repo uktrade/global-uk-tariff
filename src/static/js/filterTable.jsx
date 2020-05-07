@@ -45,7 +45,7 @@ const updateURL = (filter, sampleSize, page) => {
 
 
 const FilterTable = (props) => {
-    let filteredData;
+    let filteredData, sortedData;
     const data = props.data;
 
     const [page, setPage] = useState(props.page);
@@ -61,7 +61,13 @@ const FilterTable = (props) => {
         })
     })
 
-    const displayData = filteredData.slice((page - 1) * sampleSize, page * sampleSize);
+    sortedData = filteredData.sort((a, b) => {
+        const prefixOnA = filters.some(filter => a.commodity.startsWith(filter));
+        const prefixOnB = filters.some(filter => b.commodity.startsWith(filter));
+        return (prefixOnA ? -1 : 0) + (prefixOnB ? 1 : 0);
+    })
+
+    const displayData = sortedData.slice((page - 1) * sampleSize, page * sampleSize);
 
     const startRecord = displayData.length !== 0 ? (sampleSize * (page - 1)) + 1 : 0;
     const endRecord = sampleSize * (page) < filteredData.length ? sampleSize * (page) : filteredData.length;
