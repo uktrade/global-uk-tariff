@@ -1,10 +1,17 @@
 import csv
 import json
+import logging
+import os
 from io import BytesIO, StringIO
 from typing import Tuple, List
+from uuid import uuid4
 
 import flask
+import requests
 from xlsxwriter import Workbook
+
+GA_TRACKING_ID = os.getenv("GA_TRACKING_ID")
+GA_TRACKING_URL = "https://www.google-analytics.com/collect"
 
 DATA_FILEPATH = "data.json"
 
@@ -144,3 +151,22 @@ def get_pages(start_page: int, max_page: int, page_range: int = 2) -> List[int]:
         pages = pages + ["...", max_page]
 
     return pages
+
+
+def send_analytics(path: str, host: str, remote_addr: str, user_agent: str, **kwargs):
+    if not path.startswith("/static") and GA_TRACKING_ID:
+        data = {
+            "v": "1",
+            "tid": GA_TRACKING_ID,
+            "cid": str(uuid4()),
+            "uip": remote_addr,
+            "aip": 1,  # Ensure IPs are anonymised
+            "t": "pageview",
+            "dp": path,
+            "dh": host,
+            "ua": user_agent,
+            **kwargs,
+        }
+        requests.post(
+            GA_TRACKING_URL, data=data,
+        )
