@@ -18,23 +18,27 @@ const renderHighlightedContent = (filters, string) => {
 }
 
 
-const DataTable = (props) => {
+const DataRow = (props) => {
     const highlight = (string) => {
-        return renderHighlightedContent(props.filter.split(' '), string)
+        return renderHighlightedContent(props.filter.split(' '), String(string))
     }
-    const renderRow = (row, index) => {
-        return <tr className="govuk-table__row"role="row" key={row.commodity + index}>
-            <td className="govuk-table__cell hs-cell">
-                <span className="hs-cell__heading">{row.commodity.slice(0, 4)}</span><span
-                className="hs-cell__subheading">{row.commodity.slice(4, 6)}</span><span
-                className="hs-cell__subheading">{row.commodity.slice(6)}</span>
-            </td>
-            <td className="govuk-table__cell">{highlight(row.description)}</td>
-            <td className="govuk-table__cell nw">{highlight(row.cet_duty_rate)}</td>
-            <td className="govuk-table__cell nw">{highlight(row.ukgt_duty_rate)}</td>
-            <td className="govuk-table__cell r">{highlight(row.change)}</td>
-        </tr>
-    }
+    
+    return <tr className="govuk-table__row"role="row">
+        <td className="govuk-table__cell hs-cell">
+            <span className="hs-cell__heading">{props.commodity.slice(0, 4)}</span><span
+            className="hs-cell__subheading">{props.commodity.slice(4, 6)}</span><span
+            className="hs-cell__subheading">{props.commodity.slice(6, 8)}</span>{props.commodity.length > 8 ? <span
+            className="hs-cell__subdivision">{props.commodity.slice(8)}</span> : null}
+        </td>
+        <td className="govuk-table__cell">{highlight(props.description)}</td>
+        <td className="govuk-table__cell nw">{highlight(props.cet_duty_rate)}</td>
+        <td className="govuk-table__cell nw">{highlight(props.ukgt_duty_rate)}</td>
+        <td className="govuk-table__cell r">{highlight(props.change)}</td>
+    </tr>
+}
+
+
+const DataTable = (props) => {
     return <table className="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid"
                aria-describedby="alltable_info" style={{width: 1024}}>
             <thead className="govuk-table__head">
@@ -58,7 +62,9 @@ const DataTable = (props) => {
             </thead>
             <tbody className="govuk-table__body">
             {
-                props.rows.map(renderRow)
+                props.rows.map(
+                    (row, index) => <DataRow index={index} filter={props.filter} key={row.commodity + index} {...row} />
+                )
             }
             </tbody>
         </table>

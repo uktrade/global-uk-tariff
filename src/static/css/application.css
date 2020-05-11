@@ -1502,3 +1502,7 @@ tr .highlight {
 .hs-cell__subheading {
     background-color: #cae2f0;
 }
+
+.hs-cell__subdivision {
+    background-color: #c9e8e5;
+}
