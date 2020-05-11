@@ -51,7 +51,7 @@
                         {% for item in data %}
                             <tr class="govuk-table__row" role="row">
                                 <td class="govuk-table__cell hs-cell">
-                                    <span class="hs-cell__heading">{{ item.commodity[:4] }}</span><span class="hs-cell__subheading">{{ item.commodity[4:6] }}</span><span class="hs-cell__subheading">{{ item.commodity[6:] }}</span>
+                                    <span class="hs-cell__heading">{{ item.commodity[:4] }}</span><span class="hs-cell__subheading">{{ item.commodity[4:6] }}</span><span class="hs-cell__subheading">{{ item.commodity[6:8] }}</span>{% if item.commodity|length > 8 %}<span class="hs-cell__subdivision">{{ item.commodity[8:] }}</span>{% endif %}
                                 </td>
                                 <td class="govuk-table__cell">{{ item.description }}</td>
                                 <td class="govuk-table__cell nw">{{ item.cet_duty_rate }}</td>
@@ -108,7 +108,7 @@
             {{ page }},
             "{{ filter|safe }}",
             "{{ url_for('static', filename='assets/images/search.svg')}}",
-            {{ all_data|safe }},
+            {{ all_data|tojson }},
             {{ pages|tojson }}
         );
     </script>
