@@ -1,6 +1,5 @@
 import csv
 import json
-import logging
 import os
 from io import BytesIO, StringIO
 from typing import Tuple, List
@@ -49,7 +48,7 @@ def get_filtered_data(data: List[dict], filters: List[str]) -> List[dict]:
 
     new_data = []
     for row in data:
-        str_row = [item.lower() for item in row.values()]
+        str_row = [str(item).lower() for item in row.values()]
         for sub_filter in filters:
             if not any(sub_filter in item for item in str_row):
                 break

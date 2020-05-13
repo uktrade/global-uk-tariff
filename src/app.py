@@ -1,6 +1,4 @@
-import logging
 import math
-import os
 from concurrent.futures.thread import ThreadPoolExecutor
 
 import flask
@@ -17,9 +15,8 @@ thread_pool = ThreadPoolExecutor()
 
 
 @app.route("/")
-@decorators.cache_without_request_args()
 def home():
-    return flask.render_template("home.html")
+    return flask.redirect("/tariff")
 
 
 @app.route("/healthcheck")
