@@ -51,8 +51,11 @@ def data() -> list:
 def test_home(client: FlaskClient):
     response = client.get("/")
 
-    assert response.status_code == 200
-    assert b'<a href="/tariff">global tariff</a>' in response.data
+    assert response.status_code == 302
+    assert (
+        b'You should be redirected automatically to target URL: <a href="/tariff">/tariff</a>.  If not click the link.'
+        in response.data
+    )
 
 
 def test_healthcheck(client: FlaskClient):
