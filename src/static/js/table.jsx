@@ -31,8 +31,8 @@ const DataRow = (props) => {
             className="hs-cell__subdivision">{props.commodity.slice(8)}</span> : null}
         </td>
         <td className="govuk-table__cell">{highlight(props.description)}</td>
-        <td className="govuk-table__cell nw">{highlight(props.cet_duty_rate)}</td>
-        <td className="govuk-table__cell nw">{highlight(props.ukgt_duty_rate)}</td>
+        <td className="govuk-table__cell">{highlight(props.cet_duty_rate)}</td>
+        <td className="govuk-table__cell">{highlight(props.ukgt_duty_rate)}</td>
         <td className="govuk-table__cell r">{highlight(props.change)}</td>
     </tr>
 }
