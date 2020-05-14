@@ -30,28 +30,47 @@ const DataRow = (props) => {
 
     if (props.trade_remedy_applies && props.dumping_margin_applies) {
         ukTariffRate = <>
-            <span className="govuk-table__cell--trigger" onClick={() => {setModalOpen(!modalOpen)}}>See details</span>
+            <span className="govuk-table__cell--trigger" onClick={() => {
+                setModalOpen(!modalOpen)
+            }}>See details</span>
             {modalOpen ?
                 <Modal handleClick={() => setModalOpen(false)}>
-                    <h3>A trade remedy applies to {highlight(props.commodity)} when arriving from some countries</h3>
+                    <h3>A trade remedy applies to {highlight(props.commodity)} for goods arriving from specific countries</h3>
                     <p>UK Global Tariff rate: {highlight(props.ukgt_duty_rate)}</p>
                     <p>This will apply from 1 January 2021.</p>
-                    <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade remedies</a>.</p>
+                    <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade
+                        remedies</a>.</p>
                 </Modal> : null}
-            </>
+        </>
 
     } else if (props.trade_remedy_applies) {
         ukTariffRate = <>
-            <span className="govuk-table__cell--trigger" onClick={() => {setModalOpen(!modalOpen)}}>See details</span>
+            <span className="govuk-table__cell--trigger" onClick={() => {
+                setModalOpen(!modalOpen)
+            }}>See details</span>
             {modalOpen ?
                 <Modal handleClick={() => setModalOpen(false)}>
-                    <h3>A trade remedy applies to {highlight(props.commodity)} when arriving from some countries</h3>
+                    <h3>A trade remedy applies to {highlight(props.commodity)} for goods arriving from specific countries</h3>
                     <p>UK Global Tariff rate: {highlight(props.ukgt_duty_rate)}</p>
-                    <p>Common External Tariff rate: {highlight(props.cet_duty_rate)} - this will continue to apply until transition reviews of all products in scope of this measure have been completed. The UK Global Tariff will then apply.</p>
-                    <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade remedies</a>.</p>
+                    <p>Common External Tariff rate: {highlight(props.cet_duty_rate)} - this will continue to apply until
+                        transition reviews of all products in scope of this measure have been completed. The UK Global
+                        Tariff will then apply.</p>
+                    <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade
+                        remedies</a>.</p>
                 </Modal> : null}
-            </>
+        </>
 
+    } else if (props.suspension_applies) {
+        ukTariffRate = <>
+            <span className="govuk-table__cell--trigger" onClick={() => {
+                setModalOpen(!modalOpen)
+            }}>See details</span>
+            {modalOpen ?
+                <Modal handleClick={() => setModalOpen(false)}>
+                    <p>UK Global Tariff rate: {highlight(props.ukgt_duty_rate)}</p>
+                    <p>An Autonomous Suspension applies, this will be reviewed in due course.</p>
+                </Modal> : null}
+        </>
     } else {
         ukTariffRate = highlight(props.ukgt_duty_rate)
     }
