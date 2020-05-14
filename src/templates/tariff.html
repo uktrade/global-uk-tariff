@@ -61,6 +61,8 @@
                                 <td class="govuk-table__cell"><span class="govuk-table__cell--trigger">See details</span>{{ modals.trade_remedy_with_dumping_modal(item.commodity, item.ukgt_duty_rate, item.cet_duty_rate) }}</td>
                             {% elif item.trade_remedy_applies %}
                                 <td class="govuk-table__cell"><span class="govuk-table__cell--trigger">See details</span>{{ modals.trade_remedy_modal(item.commodity, item.ukgt_duty_rate, item.cet_duty_rate) }}</td>
+                            {% elif item.suspension_applies %}
+                                <td class="govuk-table__cell"><span class="govuk-table__cell--trigger">See details</span>{{ modals.suspension_modal(item.ukgt_duty_rate) }}</td>
                             {% else %}
                                 <td class="govuk-table__cell">{{ item.ukgt_duty_rate }}</td>
                             {% endif %}
