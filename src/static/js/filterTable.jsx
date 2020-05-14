@@ -84,7 +84,7 @@ const FilterTable = (props) => {
         updateURL(filter, sampleSize, newPage);
     }
 
-    return <div id="alltable_wrapper" className="dataTables_wrapper no-footer">
+    return <div className="dataTable-wrapper">
         <FilterOptions handleSampleSizeChange={handleSampleSizeChange}
                        handleFilterChange={handleFilterChange}
                        filter={filter}

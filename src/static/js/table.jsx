@@ -1,4 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
+
+import Modal from './modal.jsx';
+
 
 
 const escapeRegExp = (string) => {
@@ -19,10 +22,41 @@ const renderHighlightedContent = (filters, string) => {
 
 
 const DataRow = (props) => {
+    let ukTariffRate;
     const highlight = (string) => {
         return renderHighlightedContent(props.filter.split(' '), String(string))
     }
-    
+    const [modalOpen, setModalOpen] = useState(false);
+
+    if (props.trade_remedy_applies && props.dumping_margin_applies) {
+        ukTariffRate = <>
+            <span className="govuk-table__cell--trigger" onClick={() => {setModalOpen(!modalOpen)}}>See details</span>
+            {modalOpen ?
+                <Modal handleClick={() => setModalOpen(false)}>
+                    <h3>A trade remedy applies to {highlight(props.commodity)} when arriving from some countries</h3>
+                    <p>UK Global Tariff rate: {highlight(props.ukgt_duty_rate)}</p>
+                    <p>This will apply from 1 January 2021.</p>
+                    <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade remedies</a>.</p>
+                </Modal> : null}
+            </>
+
+    } else if (props.trade_remedy_applies) {
+        ukTariffRate = <>
+            <span className="govuk-table__cell--trigger" onClick={() => {setModalOpen(!modalOpen)}}>See details</span>
+            {modalOpen ?
+                <Modal handleClick={() => setModalOpen(false)}>
+                    <h3>A trade remedy applies to {highlight(props.commodity)} when arriving from some countries</h3>
+                    <p>UK Global Tariff rate: {highlight(props.ukgt_duty_rate)}</p>
+                    <p>Common External Tariff rate: {highlight(props.cet_duty_rate)} - this will continue to apply until transition reviews of all products in scope of this measure have been completed. The UK Global Tariff will then apply.</p>
+                    <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade remedies</a>.</p>
+                </Modal> : null}
+            </>
+
+    } else {
+        ukTariffRate = highlight(props.ukgt_duty_rate)
+    }
+
+
     return <tr className="govuk-table__row"role="row">
         <td className="govuk-table__cell hs-cell">
             <span className="hs-cell__heading">{props.commodity.slice(0, 4)}</span><span
@@ -32,7 +66,7 @@ const DataRow = (props) => {
         </td>
         <td className="govuk-table__cell">{highlight(props.description)}</td>
         <td className="govuk-table__cell">{highlight(props.cet_duty_rate)}</td>
-        <td className="govuk-table__cell">{highlight(props.ukgt_duty_rate)}</td>
+        <td className="govuk-table__cell">{ukTariffRate}</td>
         <td className="govuk-table__cell r">{highlight(props.change)}</td>
     </tr>
 }
@@ -40,7 +74,7 @@ const DataRow = (props) => {
 
 const DataTable = (props) => {
     return <table className="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid"
-               aria-describedby="alltable_info" style={{width: 1024}}>
+               aria-describedby="alltable_info">
             <thead className="govuk-table__head">
             <tr className="govuk-table__row" role="row">
                 <th className="nw govuk-table__header govuk-table__cell sorting_asc" style={{width: 104}}

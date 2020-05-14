@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% import 'modals.html' as modals %}
 {% set filter = request.args.get('q', '') %}
 
 {% block content %}
@@ -14,9 +15,9 @@
         </ul>
     </div>
 
-    <div id="dataTable" class="row container-fluid">
+    <div id="dataTable">
         <noscript>
-            <div id="alltable_wrapper" class="dataTables_wrapper no-footer">
+            <div class="dataTable-wrapper">
                 <form class="data-options" action="" method="get">
                     <div class="data-options__filter">
                         <div>
@@ -33,10 +34,12 @@
                         <button type="submit" class="dt-button govuk-button buttons-excel buttons-html5">Filter</button>
                     </div>
                 </form>
-            <br>
-            <br>
-            <div class="govuk-body">If you need help finding your commodity code you can use the <a href="https://www.gov.uk/guidance/using-the-trade-tariff-tool-to-find-a-commodity-code" class="govuk-link govuk-link--no-visited-state">trade tariff tool</a>.</div>
-                <table class="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid" aria-describedby="alltable_info" style="width: 1024px;">
+                <br>
+                <br>
+                <div class="govuk-body">
+                    If you need help finding your commodity code you can use the <a href="https://www.gov.uk/guidance/using-the-trade-tariff-tool-to-find-a-commodity-code" class="govuk-link govuk-link--no-visited-state">trade tariff tool</a>.
+                </div>
+                <table class="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid" aria-describedby="alltable_info">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row" role="row">
                             <th class="nw govuk-table__header govuk-table__cell sorting_asc" style="width: 104px;" rowspan="1" colspan="1" aria-label="Commodity">Commodity</th>
@@ -54,7 +57,13 @@
                                 </td>
                                 <td class="govuk-table__cell">{{ item.description }}</td>
                                 <td class="govuk-table__cell">{{ item.cet_duty_rate }}</td>
+                            {% if item.trade_remedy_applies and item.dumping_margin_applies %}
+                                <td class="govuk-table__cell"><span class="govuk-table__cell--trigger">See details</span>{{ modals.trade_remedy_with_dumping_modal(item.commodity, item.ukgt_duty_rate, item.cet_duty_rate) }}</td>
+                            {% elif item.trade_remedy_applies %}
+                                <td class="govuk-table__cell"><span class="govuk-table__cell--trigger">See details</span>{{ modals.trade_remedy_modal(item.commodity, item.ukgt_duty_rate, item.cet_duty_rate) }}</td>
+                            {% else %}
                                 <td class="govuk-table__cell">{{ item.ukgt_duty_rate }}</td>
+                            {% endif %}
                                 <td class="govuk-table__cell r">{{ item.change }}</td>
                             </tr>
                         {% endfor %}
