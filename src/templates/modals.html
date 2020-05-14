@@ -1,0 +1,18 @@
+{% macro trade_remedy_with_dumping_modal(commodity_code, uk_tariff, common_tariff) -%}
+    <div class="govuk-table__cell--modal">
+        <h3>A trade remedy applies to {{ commodity_code }} for goods arriving from specific countries.</h3>
+        <p>UK Global Tariff rate: {{ uk_tariff }}</p>
+        <p>This will apply from 1 January 2021</p>
+        <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade remedies</a>.</p>
+    </div>
+{% endmacro %}
+
+
+{% macro trade_remedy_modal(commodity_code, uk_tariff, common_tariff) -%}
+    <div class="govuk-table__cell--modal">
+        <h3>A trade remedy applies to {{ commodity_code }} for goods arriving from specific countries.</h3>
+        <p>UK Global Tariff rate: {{ uk_tariff }}</p>
+        <p>Common External Tariff rate: {{ common_tariff }} - this will continue to apply until transition reviews of all products in scope of this measure have been completed. The UK Global Tariff will then apply.</p>
+        <p>Read more about <a href="https://www.gov.uk/guidance/trade-remedies-transition-policy">trade remedies</a>.</p>
+    </div>
+{% endmacro %}

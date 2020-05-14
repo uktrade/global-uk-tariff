@@ -1350,9 +1350,13 @@ td .json:first-of-type {
     height: 20px;
 }
 
-main#main-content table#alltable {
-    width: 100% !important;
-    min-width: 840px !important;
+.dataTable-wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+#alltable {
+    max-width: 100%;
 }
 
 div.dt-buttons {
@@ -1433,22 +1437,9 @@ div.dt-buttons .govuk-button:link {
     margin-right: 20px;
 }
 
-
-@media screen and (max-width: 600px) {
-    .data-options__filter {
-        float: left;
-        width: 100%;
-    }
-
-    .data-options__length {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        float: left;
-    }
-}
-
 .pagination {
     width: 100%;
+    margin-bottom: 50px;
 }
 
 .pagination__info {
@@ -1505,4 +1496,90 @@ tr .highlight {
 
 .hs-cell__subdivision {
     background-color: #c9e8e5;
+}
+
+.govuk-table__cell--modal {
+    display: none;
+    position: fixed;
+    background: white;
+    border: solid black 1px;
+    left: 50%;
+    top: 50%;
+    width: 400px;
+    padding: 5px 15px 15px 15px;
+    margin-left: -216px;  /* width + margins + borders divided by 2. */
+    margin-top: -126px; /* Assume a rough height of ~260px + margins + borders divided by 2. */
+}
+
+.govuk-table__cell:hover .govuk-table__cell--modal, .govuk-table__cell--modal.nohover {
+    display: unset;
+}
+
+.govuk-table__cell--modal.with-buttons {
+    margin-top: -151px; /* Assume a rough height of ~280px + margins + borders divided by 2. */
+}
+
+.govuk-table__cell--modal p {
+    word-break: break-word;
+    white-space: normal;
+}
+
+.govuk-table__cell--modal-closer {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(180, 180, 180, 0.5);
+}
+
+.govuk-table__cell--modal-button {
+    margin-bottom: 0;
+}
+
+.govuk-table__cell--trigger {
+    color: #1d70b8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* mobile overrides */
+@media screen and (max-width: 41em) {
+    .data-options__filter {
+        float: left;
+        width: 100%;
+    }
+
+    .data-options__length {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        float: left;
+    }
+
+    .data-options__length button {
+        margin-top: 20px;
+    }
+
+    .pagination__info {
+        margin-bottom: 20px;
+    }
+
+    .pagination__links {
+        margin-bottom: 20px;
+        float: left;
+    }
+
+    div.dt-buttons .dt-button:link {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    .govuk-table__cell--modal {
+        width: calc(100vw - 12px);
+        min-width: 325px;
+        left: 0;
+        margin-left: 0;
+        padding: 5px 5px 15px 5px;
+    }
 }
