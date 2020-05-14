@@ -1,6 +1,6 @@
-{
+[{
   "title": "Tariffs to trade with the UK from 1 January 2021",
-  "description": "The UK Global Tariff (UKGT) is the UK's first independent tariff policy which will replace the current Common External Tariff (CET) which applies now. This Most Favoured Nation (MFN) tariff will enter into force on 1 January 2021. The tariffs will apply to all goods imported into the UK, unless an exception such as a preferential arrangement or tariff suspension applies. In particular, this tariff will not apply to goods coming from developing countries that benefit under the Generalised Scheme of Preferences, or to goods originating from countries with which the UK has negotiated a free trade agreement (FTA). For more information, see https://www.gov.uk/government/consultations/the-uk-global-tariff.\n\nThis dataset lists how the tariff will change in the UKGT compared to the CET, split out by commodity code as specified to 8 digits by the 2019 Combined Nomenclature (CN). It includes a description for each code based on that standard. For each code, it includes the current duty expression under the CET and the new duty expression under the UKGT, with an additional field categorising the change (as 'no change', 'simplified' or 'liberalised').\n\nThis dataset only includes MFN rates and does not include the tariff exceptions mentioned above. It also does not include changes to Tariff Rate Quotas (TRQs) which are listed separately elsewhere.",
+  "description": "The UK Global Tariff (UKGT) is the UK's first independent tariff policy which will replace the current Common External Tariff (CET) which applies now. This tariff will enter into force on 1 January 2021. The tariffs will apply to all goods imported into the UK, unless an exception such as a preferential arrangement or tariff suspension applies. In particular, this tariff will not apply to goods coming from developing countries that benefit under the Generalised Scheme of Preferences, or to goods originating from countries with which the UK has negotiated a free trade agreement (FTA). For more information, see https://www.gov.uk/check-tariffs-1-january-2021.\n\nThis dataset lists how the tariff will change in the UKGT compared to the CET, split out by commodity code as specified to 8 or 10 digits by the 2020 Combined Nomenclature (CN). It includes a description for each code based on that standard. For each code, it includes the current duty expression under the CET and the new duty expression under the UKGT, with an additional field categorising the change (as 'no change', 'currency conversion', 'simplified', 'reduced' or 'liberalised'). The dataset also indicates where commodities are subject to a trade remedy, anti-dumping measure or suspension, or include an Autonomous Tariff Quota. Please see the associated guidance for information on these terms and how the duty will change in these cases.",
   "identifier": "uk.gov.trade.uk-global-tariff",
   "license": "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
   "keyword": [
@@ -19,19 +19,19 @@
   ],
   "distribution": [
     {
-      "title": "MFN tariff changes by commodity code",
+      "title": "Tariff changes by commodity code",
       "format": "text/csv",
       "downloadURL": "{{ url_for('tariff_csv', _external=True) }}"
     },
     {
-      "title": "MFN tariff changes by commodity code",
+      "title": "Tariff changes by commodity code",
       "format": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "downloadURL": "{{ url_for('tariff_xlsx', _external=True) }}"
     },
     {
-      "title": "MFN tariff changes by commodity code",
+      "title": "Tariff changes by commodity code",
       "format": "application/json",
       "downloadURL": "{{ url_for('tariff_api', _external=True) }}"
     }
   ]
-}
+}]
