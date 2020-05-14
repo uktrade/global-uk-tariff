@@ -54,8 +54,8 @@
                                     <span class="hs-cell__heading">{{ item.commodity[:4] }}</span><span class="hs-cell__subheading">{{ item.commodity[4:6] }}</span><span class="hs-cell__subheading">{{ item.commodity[6:8] }}</span>{% if item.commodity|length > 8 %}<span class="hs-cell__subdivision">{{ item.commodity[8:] }}</span>{% endif %}
                                 </td>
                                 <td class="govuk-table__cell">{{ item.description }}</td>
-                                <td class="govuk-table__cell nw">{{ item.cet_duty_rate }}</td>
-                                <td class="govuk-table__cell nw">{{ item.ukgt_duty_rate }}</td>
+                                <td class="govuk-table__cell">{{ item.cet_duty_rate }}</td>
+                                <td class="govuk-table__cell">{{ item.ukgt_duty_rate }}</td>
                                 <td class="govuk-table__cell r">{{ item.change }}</td>
                             </tr>
                         {% endfor %}
