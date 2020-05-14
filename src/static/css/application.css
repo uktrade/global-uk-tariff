@@ -1511,7 +1511,7 @@ tr .highlight {
     margin-top: -126px; /* Assume a rough height of ~260px + margins + borders divided by 2. */
 }
 
-.govuk-table__cell:hover .govuk-table__cell--modal, .govuk-table__cell--modal.nohover {
+.govuk-table__cell:target .govuk-table__cell--modal, .govuk-table__cell--modal.nohover {
     display: unset;
 }
 
