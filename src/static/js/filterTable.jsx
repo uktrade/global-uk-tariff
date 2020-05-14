@@ -29,7 +29,7 @@ const getPageOptions = (startPage, maxPage, pageRange = 2) => {
     }
 
     if (!pageOptions.includes(maxPage)){
-        pageOptions = pageOptions.concat(['..', maxPage]);
+        pageOptions = pageOptions.concat(['...', maxPage]);
     }
 
     return pageOptions
