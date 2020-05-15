@@ -71,6 +71,17 @@ const DataRow = (props) => {
                     <p>An Autonomous Suspension applies, this will be reviewed in due course.</p>
                 </Modal> : null}
         </>
+    } else if (props.atq_applies) {
+        ukTariffRate = <>
+            <span className="govuk-table__cell--trigger" onClick={() => {
+                setModalOpen(!modalOpen)
+            }}>See details</span>
+            {modalOpen ?
+                <Modal handleClick={() => setModalOpen(false)}>
+                    <p>A New Autonomous Quota of 260,000 tons will apply to the following commodity codes: 1701 13 10 and 1701 14 10 from 1 Jan 2021, for 12 months, with an in quota rate of 0.00%.</p>
+                    <p>This will be reviewed in line with the UK’s suspensions policy in due course.</p>
+                </Modal> : null}
+        </>
     } else {
         ukTariffRate = highlight(props.ukgt_duty_rate)
     }
