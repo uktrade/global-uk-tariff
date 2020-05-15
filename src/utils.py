@@ -154,6 +154,7 @@ def get_pages(start_page: int, max_page: int, page_range: int = 2) -> List[int]:
 
 def send_analytics(path: str, host: str, remote_addr: str, user_agent: str, **kwargs):
     if not path.startswith("/static") and GA_TRACKING_ID:
+        remote_addr = ".".join(remote_addr.split(".")[:3]) + ".0"
         data = {
             "v": "1",
             "tid": GA_TRACKING_ID,
