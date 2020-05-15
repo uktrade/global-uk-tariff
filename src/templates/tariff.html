@@ -64,7 +64,7 @@
                             {% elif item.suspension_applies %}
                                 <td id="{{ item.commodity }}" class="govuk-table__cell"><a href="#{{ item.commodity }}" class="govuk-table__cell--trigger">See details</a>{{ modals.suspension_modal(item.ukgt_duty_rate) }}</td>
                             {% elif item.atq_applies %}
-                                <td id="{{ item.commodity }}" class="govuk-table__cell"><a href="#{{ item.commodity }}" class="govuk-table__cell--trigger">See details</a>{{ modals.atq_modal() }}</td>
+                                <td id="{{ item.commodity }}" class="govuk-table__cell"><a href="#{{ item.commodity }}" class="govuk-table__cell--trigger">See details</a>{{ modals.atq_modal(item.ukgt_duty_rate) }}</td>
                             {% else %}
                                 <td id="{{ item.commodity }}" class="govuk-table__cell">{{ item.ukgt_duty_rate }}</td>
                             {% endif %}
