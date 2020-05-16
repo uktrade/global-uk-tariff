@@ -1,11 +1,12 @@
 import json
 import sys
-
+import re
 import xlrd
 
 
 ERROR_CTYPE = 5
 
+BAD_CHARS = re.compile('[┬▒áôç░╬╝ó▓ïüâèêëù¤ãö║┤╣à╗©ñ┼ä]', re.IGNORECASE)
 
 def clean_tariff_rate(value):
     if isinstance(value, float):
@@ -15,6 +16,7 @@ def clean_tariff_rate(value):
 
 
 def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1"):
+    errors = []
     workbook = xlrd.open_workbook(input_file)
     worksheet = workbook.sheet_by_name(sheet_name)
 
@@ -27,6 +29,9 @@ def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1")
         if any(item.ctype == ERROR_CTYPE for item in row):
             print(f"Row {row_number}: Failed row with code {row[0].value}")
             continue
+
+        if BAD_CHARS.search(row[3].value):
+            errors.append(row[0].value)
 
         if not isinstance(row[1].value, str):
             print(f"Row {row_number}: CC is not a string, is {type(row[1].value)}")
@@ -45,7 +50,7 @@ def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1")
         data.append(
             {
                 "commodity": row[0].value,
-                "description": row[3].value,
+                "description": row[3].value.strip(),
                 "cet_duty_rate": clean_tariff_rate(row[4].value),
                 "ukgt_duty_rate": clean_tariff_rate(row[5].value),
                 "change": row[6].value.capitalize(),
@@ -60,6 +65,11 @@ def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1")
 
     with open(output_file, "w") as f:
         json.dump(data, f, indent=2)
+
+    print(f"There were {len(errors)} descriptions containing bad characters.")
+    with open(f"{input_file}-bad.txt", 'w') as f:
+        for bad in errors:
+            f.write(f"{bad}\n")
 
 
 if __name__ == "__main__":
