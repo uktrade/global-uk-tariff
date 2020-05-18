@@ -45,15 +45,13 @@ def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1")
         data.append(
             {
                 "commodity": row[0].value,
-                "description": row[3].value,
+                "description": row[3].value.strip(),
                 "cet_duty_rate": clean_tariff_rate(row[4].value),
                 "ukgt_duty_rate": clean_tariff_rate(row[5].value),
                 "change": row[6].value.capitalize(),
                 "trade_remedy_applies": row[7].value is not None and row[7].value != "",
                 "dumping_margin_applies": row[8].value == "TRUE" or row[8].value == 1,
                 "suspension_applies": row[10].value is not None and row[10].value != "",
-                "eps_applies": row[11].value is not None and row[11].value != "",
-                "meursing_applies": row[13].value is not None and row[13].value != "",
                 "atq_applies": row[14].value is not None and row[14].value != "",
             }
         )
