@@ -1,6 +1,8 @@
 import math
+import os
 from concurrent.futures.thread import ThreadPoolExecutor
 
+from elasticapm.contrib.flask import ElasticAPM
 import flask
 from flask import request, Response
 from whitenoise import WhiteNoise
@@ -8,7 +10,15 @@ from whitenoise import WhiteNoise
 from src import decorators, utils
 
 app = flask.Flask(__name__)
+app.config["ELASTIC_APM"] = {
+    "SERVICE_NAME": "global-uk-tariff",
+    "SECRET_TOKEN": os.getenv("APM_TOKEN"),
+    "SERVER_URL": "https://apm.elk.uktrade.digital",
+    "ENVIRONMENT": os.getenv("ENV_NAME"),
+}
+
 app.wsgi_app = WhiteNoise(app.wsgi_app, root="static/")
+apm = ElasticAPM(app)
 
 
 thread_pool = ThreadPoolExecutor()
