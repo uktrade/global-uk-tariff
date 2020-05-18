@@ -5,9 +5,19 @@ from concurrent.futures.thread import ThreadPoolExecutor
 from elasticapm.contrib.flask import ElasticAPM
 import flask
 from flask import request, Response
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
 from whitenoise import WhiteNoise
 
 from src import decorators, utils
+
+
+if os.getenv("SENTRY_KEY") and os.getenv("SENTRY_PROJECT") and os.getenv("SENTRY_HOST"):
+    sentry_sdk.init(
+        dsn=f"https://{os.getenv('SENTRY_KEY')}@{os.getenv('SENTRY_HOST')}/{os.getenv('SENTRY_PROJECT')}",
+        integrations=[FlaskIntegration()],
+    )
+
 
 app = flask.Flask(__name__)
 app.config["ELASTIC_APM"] = {
