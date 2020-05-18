@@ -15,7 +15,7 @@ const getPageOptions = (startPage, maxPage, pageRange = 2) => {
     let pageOptions = [];
 
     for (let i = startPage - pageRange; i < startPage + pageRange + 1; i++) {
-        if (0 < i && i < maxPage) {
+        if (0 < i && i <= maxPage) {
             pageOptions.push(i);
         }
     }
