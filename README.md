@@ -88,6 +88,16 @@ To run them with coverage use the following command:
 python -m pytest . --cov
 ```
 
+## Performance Testing
+
+A locustfile is included for performance testing purposes. To use this [install locust](https://docs.locust.io/en/stable/installation.html) and [faker](https://faker.readthedocs.io/en/master/). Then run:
+
+    locust
+
+This will start a server on [localhost:8089]() which can be used to decide how many users to spawn and make requests.
+
+To change the target of the performance test go into [locustfile.py](locustfile.py) and edit the host on the last line.
+
 ## Updating Data
 
 If the need arises to update the static JSON file from a spreadsheet, this can be done on a local machine using:
