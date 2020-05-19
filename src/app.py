@@ -1,3 +1,4 @@
+import logging
 import math
 import os
 from concurrent.futures.thread import ThreadPoolExecutor
@@ -11,6 +12,8 @@ from whitenoise import WhiteNoise
 
 from src import decorators, utils
 
+
+logger = logging.getLogger(__name__)
 
 if os.getenv("SENTRY_KEY") and os.getenv("SENTRY_PROJECT") and os.getenv("SENTRY_HOST"):
     sentry_sdk.init(
@@ -133,16 +136,30 @@ def add_no_robots_header(response: Response):
 
 @app.after_request
 def google_analytics(response: Response):
-    kwargs = {}
-    if request.accept_languages:
-        kwargs["ul"] = request.accept_languages[0]
+    try:
+        kwargs = {}
+        if request.accept_languages:
+            try:
+                kwargs["ul"] = request.accept_languages[0][0]
+            except IndexError:
+                pass
 
-    thread_pool.submit(
-        utils.send_analytics,
-        path=request.path,
-        host=request.host,
-        remote_addr=request.remote_addr,
-        user_agent=request.headers["User-Agent"],
-        **kwargs,
-    )
+        if request.referrer:
+            kwargs["dr"] = request.referrer
+
+        path = request.path
+        if request.query_string:
+            path = path + f"?{request.query_string.decode()}"
+
+        thread_pool.submit(
+            utils.send_analytics,
+            path=path,
+            host=request.host,
+            remote_addr=request.remote_addr,
+            user_agent=request.headers["User-Agent"],
+            **kwargs,
+        )
+    except Exception:  # We don't want to kill the response if GA fails.
+        logger.exception("Google Analytics failed")
+        pass
     return response
