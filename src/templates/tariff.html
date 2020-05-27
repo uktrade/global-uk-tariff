@@ -3,9 +3,9 @@
 {% set filter = request.args.get('q', '') %}
 
 {% block content %}
-    <h2 class="govuk-heading-m">
+    <h1 class="govuk-heading-m">
         Search for your goods
-    </h2>
+    </h1>
     <div class="govuk-body">
         You can search using:
         <ul>
@@ -22,7 +22,7 @@
                 <form class="data-options" action="" method="get">
                     <div class="data-options__filter">
                         <div>
-                            <input type="search" name="q" placeholder="Search here..." class="govuk-input" value="{{ filter }}" aria-controls="alltable" />
+                            <input type="search" name="q" aria-label="Search" placeholder="Search here..." class="govuk-input" value="{{ filter }}" aria-controls="alltable" />
                         </div>
                     </div>
                     <div class="data-options__length">
@@ -40,7 +40,7 @@
                 <div class="govuk-body">
                     If you need help finding your commodity code you can use the <a href="https://www.gov.uk/guidance/using-the-trade-tariff-tool-to-find-a-commodity-code" class="govuk-link govuk-link--no-visited-state">trade tariff tool</a>.
                 </div>
-                <table class="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid" aria-describedby="alltable_info">
+                <table class="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row" role="row">
                             <th class="nw govuk-table__header govuk-table__cell sorting_asc" style="width: 104px;" rowspan="1" colspan="1" aria-label="Commodity">Commodity</th>
