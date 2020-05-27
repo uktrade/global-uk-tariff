@@ -104,8 +104,7 @@ const DataRow = (props) => {
 
 
 const DataTable = (props) => {
-    return <table className="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid"
-               aria-describedby="alltable_info">
+    return <table className="table table-hover govuk-table sticky dataTable no-footer" id="alltable" role="grid">
             <thead className="govuk-table__head">
             <tr className="govuk-table__row" role="row">
                 <th className="nw govuk-table__header govuk-table__cell sorting_asc" style={{width: 104}}

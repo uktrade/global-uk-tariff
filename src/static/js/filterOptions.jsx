@@ -14,6 +14,7 @@ const FilterOptions = (props) => {
             <div>
                 <input type="search"
                        name="q"
+                       aria-label="Search"
                        className="govuk-input"
                        placeholder="Search here..."
                        value={filter}
