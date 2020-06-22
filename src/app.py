@@ -42,6 +42,11 @@ def home():
     return flask.redirect("/tariff")
 
 
+@app.route("/accessibility")
+def accessibility():
+    return flask.render_template("accessibility.html")
+
+
 @app.route("/healthcheck")
 def healthcheck():
     response = flask.Response(
