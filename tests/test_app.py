@@ -58,6 +58,12 @@ def test_home(client: FlaskClient):
     )
 
 
+def test_accessibility(client: FlaskClient):
+    response = client.get("/accessibility")
+
+    assert response.status_code == 200
+
+
 def test_healthcheck(client: FlaskClient):
     response = client.get("/healthcheck")
     assert response.status_code == 200
