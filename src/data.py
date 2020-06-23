@@ -14,7 +14,9 @@ def clean_tariff_rate(value):
     return value
 
 
-def excel_to_json(input_file: str, output_file: str, sheet_name: str = "UKGT display corrections"):
+def excel_to_json(
+    input_file: str, output_file: str, sheet_name: str = "UKGT display corrections"
+):
     workbook = xlrd.open_workbook(input_file)
     worksheet = workbook.sheet_by_name(sheet_name)
 
