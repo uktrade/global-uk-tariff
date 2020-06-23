@@ -108,4 +108,4 @@ If the need arises to update the static JSON file from a spreadsheet, this can b
 
 Watch for any warnings about data errors that may be emitted.
 
-Then update the dates in `./src/templates/metadata.json`, commit the changes, and deploy the service.
+Then update the dates in `./src/templates/metadata.json` and `.src/template/metadata.xml`, commit the changes, and deploy the service.

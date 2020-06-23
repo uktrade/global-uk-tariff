@@ -133,6 +133,13 @@ def tariff_metadata():
     )
 
 
+@app.route("/tariff/metadata.xml")
+@decorators.cache_without_request_args()
+@decorators.compress_response
+def dcat_metadata():
+    return flask.Response(flask.render_template("metadata.xml"), mimetype="text/xml",)
+
+
 @app.after_request
 def add_no_robots_header(response: Response):
     response.headers["X-Robots-Tag"] = "noindex, nofollow"
