@@ -1579,3 +1579,7 @@ tr .highlight {
 p.govuk-body, .govuk-list li {
     font-size: 1.1875rem;
 }
+
+.govuk-footer__inline-list-item .govuk-footer__link {
+    text-decoration: underline;
+}
