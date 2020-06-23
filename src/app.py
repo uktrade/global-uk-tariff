@@ -42,7 +42,7 @@ def home():
     return flask.redirect("/tariff")
 
 
-@app.route("/accessibility")
+@app.route("/accessibility", strict_slashes=False)
 def accessibility():
     return flask.render_template("accessibility.html")
 
