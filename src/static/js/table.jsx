@@ -28,7 +28,7 @@ const DataRow = (props) => {
     }
     const [modalOpen, setModalOpen] = useState(false);
 
-    if (props.trade_remedy_applies && props.dumping_margin_applies) {
+    if (props.trade_remedy_applies && !props.cet_applies_until_trade_remedy_transition_reviews_concluded) {
         ukTariffRate = <>
             <span className="govuk-table__cell--trigger" onClick={() => {
                 setModalOpen(!modalOpen)
@@ -43,7 +43,7 @@ const DataRow = (props) => {
                 </Modal> : null}
         </>
 
-    } else if (props.trade_remedy_applies) {
+    } else if (props.trade_remedy_applies && props.cet_applies_until_trade_remedy_transition_reviews_concluded) {
         ukTariffRate = <>
             <span className="govuk-table__cell--trigger" onClick={() => {
                 setModalOpen(!modalOpen)

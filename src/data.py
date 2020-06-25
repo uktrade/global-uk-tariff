@@ -14,7 +14,7 @@ def clean_tariff_rate(value):
     return value
 
 
-def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1"):
+def excel_to_json(input_file: str, output_file: str, sheet_name: str = "UKGT display corrections"):
     workbook = xlrd.open_workbook(input_file)
     worksheet = workbook.sheet_by_name(sheet_name)
 
@@ -39,7 +39,7 @@ def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1")
             continue
 
         if row[7].value is None and row[8].value is not None:
-            print(f"Row {row_number}: Dumping margin without trade remedy.")
+            print(f"Row {row_number}: CET applies value without trade remedy.")
             continue
 
         data.append(
@@ -50,9 +50,12 @@ def excel_to_json(input_file: str, output_file: str, sheet_name: str = "Sheet1")
                 "ukgt_duty_rate": clean_tariff_rate(row[5].value),
                 "change": row[6].value.capitalize(),
                 "trade_remedy_applies": row[7].value is not None and row[7].value != "",
-                "dumping_margin_applies": row[8].value == "TRUE" or row[8].value == 1,
-                "suspension_applies": row[10].value is not None and row[10].value != "",
-                "atq_applies": row[14].value is not None and row[14].value != "",
+                "cet_applies_until_trade_remedy_transition_reviews_concluded": (
+                    row[8].value == "FALSE"
+                )
+                or (row[8].value == 0),
+                "suspension_applies": row[11].value is not None and row[11].value != "",
+                "atq_applies": row[15].value is not None and row[15].value != "",
             }
         )
 

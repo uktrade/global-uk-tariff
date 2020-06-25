@@ -58,10 +58,10 @@
                                 </td>
                                 <td class="govuk-table__cell">{{ item.description }}</td>
                                 <td class="govuk-table__cell">{{ item.cet_duty_rate }}</td>
-                            {% if item.trade_remedy_applies and item.dumping_margin_applies %}
-                                <td id="{{ item.commodity }}" class="govuk-table__cell"><a href="#{{ item.commodity }}" class="govuk-table__cell--trigger">See details</a>{{ modals.trade_remedy_with_dumping_modal(item.commodity, item.ukgt_duty_rate, item.cet_duty_rate) }}</td>
-                            {% elif item.trade_remedy_applies %}
+                            {% if item.trade_remedy_applies and item.cet_applies_until_trade_remedy_transition_reviews_concluded %}
                                 <td id="{{ item.commodity }}" class="govuk-table__cell"><a href="#{{ item.commodity }}" class="govuk-table__cell--trigger">See details</a>{{ modals.trade_remedy_modal(item.commodity, item.ukgt_duty_rate, item.cet_duty_rate) }}</td>
+                            {% elif item.trade_remedy_applies %}
+                                <td id="{{ item.commodity }}" class="govuk-table__cell"><a href="#{{ item.commodity }}" class="govuk-table__cell--trigger">See details</a>{{ modals.trade_remedy_with_dumping_modal(item.commodity, item.ukgt_duty_rate, item.cet_duty_rate) }}</td>
                             {% elif item.suspension_applies %}
                                 <td id="{{ item.commodity }}" class="govuk-table__cell"><a href="#{{ item.commodity }}" class="govuk-table__cell--trigger">See details</a>{{ modals.suspension_modal(item.ukgt_duty_rate) }}</td>
                             {% elif item.atq_applies %}
