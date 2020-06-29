@@ -137,7 +137,9 @@ def tariff_metadata():
 @decorators.cache_without_request_args()
 @decorators.compress_response
 def dcat_metadata():
-    return flask.Response(flask.render_template("metadata.xml"), mimetype="text/xml",)
+    return flask.Response(
+        flask.render_template("metadata.xml"), mimetype="application/rdf+xml",
+    )
 
 
 @app.after_request
